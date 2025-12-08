@@ -1,3 +1,4 @@
+//memoization
 class Solution {
     public static int helper(int[][] arr,int i,int j,int[][] dp){
         int n=arr.length;
@@ -8,10 +9,10 @@ class Solution {
         if(dp[i][j]!=Integer.MAX_VALUE){
             return dp[i][j];
         }
-        int s1=helper(arr,i+1,j-1,dp);
-        int s2=helper(arr,i+1,j,dp);
-        int s3=helper(arr,i+1,j+1,dp);
-        dp[i][j]=arr[i][j]+Math.min(s1,Math.min(s2,s3));
+        int dleft=helper(arr,i+1,j-1,dp);
+        int down=helper(arr,i+1,j,dp);
+        int dright=helper(arr,i+1,j+1,dp);
+        dp[i][j]=arr[i][j]+Math.min(dleft,Math.min(down,dright));
         return dp[i][j];
     }
     public int minFallingPathSum(int[][] arr) {
