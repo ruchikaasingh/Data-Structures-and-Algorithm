@@ -1,34 +1,31 @@
 class Solution {
     public boolean canPartition(int[] nums) {
-        int totalSum = 0;
-        for (int x : nums) totalSum += x;
+        int total = 0;
+        for (int x : nums) total += x;
 
-        if (totalSum % 2 != 0) return false;
+        if (total % 2 != 0) return false;
 
-        int target = totalSum / 2;
+        int target = total / 2;
         int n = nums.length;
 
-        int[][] dp = new int[n][target + 1];
-        for (int i = 0; i < n; i++) {
-            Arrays.fill(dp[i], -1);
+        boolean[][] dp = new boolean[n + 1][target + 1];
+
+        for (int i = 0; i <= n; i++) {
+            dp[i][0] = true;
         }
 
-        return fxn(0, target, nums, dp);
-    }
-
-    private boolean fxn(int i, int target, int[] nums, int[][] dp) {
-        if (target == 0) return true;
-        if (i == nums.length || target < 0) return false;
-
-        if (dp[i][target] != -1) {
-            return dp[i][target] == 1;
+        for (int i = 1; i <= n; i++) {
+            int val = nums[i - 1];
+            for (int s = 1; s <= target; s++) {
+                boolean notTake = dp[i - 1][s];
+                boolean take = false;
+                if (val <= s) {
+                    take = dp[i - 1][s - val];
+                }
+                dp[i][s] = take || notTake;
+            }
         }
 
-        boolean take = fxn(i + 1, target - nums[i], nums, dp);
-        boolean skip = fxn(i + 1, target, nums, dp);
-
-        boolean ans = take || skip;
-        dp[i][target] = ans ? 1 : 0;
-        return ans;
+        return dp[n][target];
     }
 }
