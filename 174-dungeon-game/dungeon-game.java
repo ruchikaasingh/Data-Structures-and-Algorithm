@@ -13,7 +13,7 @@ class Solution {
         // out of bounds
         if (i >= m || j >= n) return Integer.MAX_VALUE;
 
-        // princess cell (bottom-right)
+        //bottom right cell
         if (i == m - 1 && j == n - 1) {
             return Math.max(1, 1 - dungeon[i][j]);
         }
