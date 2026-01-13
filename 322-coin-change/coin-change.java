@@ -3,7 +3,7 @@ class Solution {
 
     public int coinChange(int[] coins, int amount) {
         int n = coins.length;
-        int[][] dp = new int[n][amount + 1];
+        int[][] dp = new int[n+1][amount + 1];
         for (int[] row : dp) Arrays.fill(row, -1);
 
         int ans = fxn(0, coins, amount, dp);
