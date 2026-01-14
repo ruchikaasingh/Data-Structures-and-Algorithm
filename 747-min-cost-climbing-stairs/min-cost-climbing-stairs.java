@@ -4,7 +4,7 @@ class Solution {
         if(n==1) return arr[0];
         if(n==2) return Math.min(arr[0], arr[1]);
 
-        int dp[]= new int[n+1];
+        int dp[]= new int[n];
         dp[0]= arr[0];
         dp[1]= arr[1];
 
