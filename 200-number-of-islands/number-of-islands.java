@@ -25,9 +25,9 @@ class Solution {
 
         vis[i][j] = true;
 
-        dfs(i + 1, j, vis, grid);
-        dfs(i - 1, j, vis, grid);
-        dfs(i, j + 1, vis, grid);
-        dfs(i, j - 1, vis, grid);
+        dfs(i + 1, j, vis, grid); //down
+        dfs(i - 1, j, vis, grid); //up
+        dfs(i, j + 1, vis, grid); //right
+        dfs(i, j - 1, vis, grid); //left
     }
 }
