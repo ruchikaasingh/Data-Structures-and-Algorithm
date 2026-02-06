@@ -1,24 +1,22 @@
 class Solution {
-    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
-        int oldColor = image[sr][sc];
-        if (oldColor == newColor) return image; // no change needed
-        dfs(image, sr, sc, oldColor, newColor);
+    public int[][] floodFill(int[][] image, int sr, int sc, int nc) {
+        int oc = image[sr][sc];
+        if (oc == nc) return image; //no change
+        dfs(image, sr, sc, oc, nc);
         return image;
     }
 
-    private void dfs(int[][] image, int sr, int sc, int oldColor, int newColor) {
-        // Out of bounds
+    private void dfs(int[][] image, int sr, int sc, int oc, int nc) {
         if (sr < 0 || sc < 0 || sr >= image.length || sc >= image[0].length) return;
-        // Different color → stop
-        if (image[sr][sc] != oldColor) return;
+        //different color then stop
+        if (image[sr][sc] != oc) return;
 
-        // Fill current cell
-        image[sr][sc] = newColor;
+        image[sr][sc] = nc;
 
-        // Recurse in 4 directions
-        dfs(image, sr - 1, sc, oldColor, newColor); // up
-        dfs(image, sr + 1, sc, oldColor, newColor); // down
-        dfs(image, sr, sc - 1, oldColor, newColor); // left
-        dfs(image, sr, sc + 1, oldColor, newColor); // right
+        //dfs in all dir
+        dfs(image, sr - 1, sc, oc, nc); //up
+        dfs(image, sr + 1, sc, oc, nc); //down
+        dfs(image, sr, sc - 1, oc, nc); //left
+        dfs(image, sr, sc + 1, oc, nc); //right
     }
 }
