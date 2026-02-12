@@ -1,36 +1,45 @@
 class Solution {
+    static int m, n;
     public void solve(char[][] board) {
-        if (board == null || board.length == 0) return;
-        int m = board.length, n = board[0].length;
+        m = board.length;
+        n = board[0].length;
 
-        // mark border connected O
+        boolean[][] vis = new boolean[m][n];
+
+        // Traverse boundary rows
         for (int i = 0; i < m; i++) {
-            dfs(board, i, 0);
-            dfs(board, i, n - 1);
-        }
-        for (int j = 0; j < n; j++) {
-            dfs(board, 0, j);
-            dfs(board, m - 1, j);
+            if (board[i][0] == 'O') dfs(i, 0, vis, board);
+            if (board[i][n - 1] == 'O') dfs(i, n - 1, vis, board);
         }
 
-        // flip O and safe ones
+        // Traverse boundary columns
+        for (int j = 0; j < n; j++) {
+            if (board[0][j] == 'O') dfs(0, j, vis, board);
+            if (board[m - 1][j] == 'O') dfs(m - 1, j, vis, board);
+        }
+
+        // Flip unvisited 'O' to 'X'
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (board[i][j] == 'O') board[i][j] = 'X';
-                else if (board[i][j] == '#') board[i][j] = 'O';
+                if (board[i][j] == 'O' && !vis[i][j]) {
+                    board[i][j] = 'X';
+                }
             }
         }
     }
 
-    //mark safe using dfs
-    private void dfs(char[][] board, int i, int j) {
-        int m = board.length, n = board[0].length;
-        if (i < 0 || j < 0 || i >= m || j >= n || board[i][j] != 'O') return;
+    public void dfs(int i, int j, boolean[][] vis, char[][] board) {
+        if (i < 0 || j < 0 || i >= m || j >= n || board[i][j] != 'O' || vis[i][j]) return;
 
-        board[i][j] = '#'; // mark as safe
-        dfs(board, i + 1, j);
-        dfs(board, i - 1, j);
-        dfs(board, i, j + 1);
-        dfs(board, i, j - 1);
+        vis[i][j] = true;
+
+        int[] dr = {-1, 1, 0, 0};
+        int[] dc = {0, 0, -1, 1};
+
+        for (int k = 0; k < 4; k++) {
+            int nr = i + dr[k];
+            int nc = j + dc[k];
+            dfs(nr, nc, vis, board);
+        }
     }
 }
