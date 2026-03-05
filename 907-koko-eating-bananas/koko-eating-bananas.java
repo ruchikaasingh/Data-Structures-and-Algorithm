@@ -11,9 +11,9 @@ public class Solution {
         int ans = high;
 
         while (low <= high) {
-            int mid = low + (high - low) / 2; // valid  s
-            if (canFinish(piles, h, mid)) {
-                ans = mid;       // valid
+            int mid = low + (high - low) / 2; 
+            if (lowerbound(mid, piles) <= h) {
+                ans = mid;       // valid s
                 high = mid - 1;  // try smaller speed
             } else {
                 low = mid + 1;   // need faster speed
@@ -22,13 +22,16 @@ public class Solution {
         return ans;
     }
 
-    private boolean canFinish(int[] piles, int h, int k) {
+    private int lowerbound(int speed, int[] piles) {
         long hours = 0;
         for (int pile : piles) {
-            // ceiling division: (pile + k - 1) / k
-            hours += (pile + k - 1) / k;
-            if (hours > h) return false; // early exit optimization
+            // ceiling division: (pile + speed - 1) / speed
+            hours += (pile + speed - 1) / speed;
+            if (hours > Integer.MAX_VALUE) { 
+                // safeguard against overflow, though h is int
+                return Integer.MAX_VALUE;
+            }
         }
-        return hours <= h;
+        return (int) hours;
     }
 }
