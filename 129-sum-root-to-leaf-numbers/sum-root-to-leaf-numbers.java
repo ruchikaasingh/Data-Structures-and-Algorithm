@@ -15,17 +15,23 @@
  */
 class Solution {
     public int sumNumbers(TreeNode root) {
-        return dfs(root, 0);
+        ArrayList<Integer> numbers = new ArrayList<>();
+        collectNumbers(root, 0, numbers);
+
+        int sum = 0;
+        for (int num : numbers) sum += num;
+        return sum;
     }
 
-    private int dfs(TreeNode node, int currentSum) {
-        if (node == null) return 0;
-
-        currentSum = currentSum * 10 + node.val;
+    private void collectNumbers(TreeNode node, int current, ArrayList<Integer> numbers) {
+        if (node == null) return;
+        
+        current = current * 10 + node.val;
         if (node.left == null && node.right == null) {
-            return currentSum;
+            numbers.add(current);
+            return;
         }
-
-        return dfs(node.left, currentSum) + dfs(node.right, currentSum);
+        collectNumbers(node.left, current, numbers);
+        collectNumbers(node.right, current, numbers);
     }
 }
