@@ -15,20 +15,20 @@
  */
 class Solution {
     public boolean isBalanced(TreeNode root) {
-        return dfsHeight(root) != -1;
+        if(root== null) return true;
+        int leftLevel= levels(root.left);
+        int rightLevel= levels(root.right);
+
+        if(Math.abs(leftLevel- rightLevel)>1) return false;
+        return isBalanced(root.left)&& isBalanced(root.right);
     }
 
-    private int dfsHeight(TreeNode node) {
-        if (node == null) return 0;
+    public int levels(TreeNode root){
+        if(root==null) return 0;
 
-        int left = dfsHeight(node.left);
-        if (left == -1) return -1;
+        int llevel= 1+levels(root.left);
+        int rlevel= 1+levels(root.right);
 
-        int right = dfsHeight(node.right);
-        if (right == -1) return -1;
-
-        if (Math.abs(left - right) > 1) return -1; //cur node not balanced
-
-        return Math.max(left, right) + 1; //height
+        return Math.max(llevel, rlevel);
     }
 }
