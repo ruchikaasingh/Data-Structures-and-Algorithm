@@ -1,20 +1,16 @@
 class Solution {
     public int majorityElement(int[] nums) {
-        int count = 0;
-        int result = 0;
+        int n= nums.length;
 
-        for (int num : nums) {
-            if (count == 0) {
-                result = num;
-            }
+        HashMap<Integer, Integer> map= new HashMap<>();   //stores number and its freq
+        for(int i=0; i<n; i++){
+            int count= map.getOrDefault(nums[i], 0)+1;
+            map.put(nums[i], count);
 
-            if (num == result) {
-                count++;
-            } else {
-                count--;
+            if(count> n/2){
+                return nums[i];
             }
         }
-
-        return result;
+        return 0;
     }
 }
