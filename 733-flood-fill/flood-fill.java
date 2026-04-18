@@ -1,22 +1,24 @@
 class Solution {
-    public int[][] floodFill(int[][] image, int sr, int sc, int nc) {
-        int oc = image[sr][sc];
-        if (oc == nc) return image; //no change
-        dfs(image, sr, sc, oc, nc);
+    static int m, n;
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        m= image.length;
+        n= image[0].length;
+
+        int oldcolor= image[sr][sc];
+        if(oldcolor==color) return image;
+
+        flow(image, sr, sc, color, oldcolor);
         return image;
     }
 
-    private void dfs(int[][] image, int sr, int sc, int oc, int nc) {
-        if (sr < 0 || sc < 0 || sr >= image.length || sc >= image[0].length) return;
-        //different color then stop
-        if (image[sr][sc] != oc) return;
+    public static void flow(int image[][], int r , int c, int nc, int oldcolor){
+        if(r>=m || c>=n || r<0 || c<0 || image[r][c]!= oldcolor) return;
 
-        image[sr][sc] = nc;
-
-        //dfs in all dir
-        dfs(image, sr - 1, sc, oc, nc); //up
-        dfs(image, sr + 1, sc, oc, nc); //down
-        dfs(image, sr, sc - 1, oc, nc); //left
-        dfs(image, sr, sc + 1, oc, nc); //right
+        image[r][c]= nc;
+        
+        flow(image, r+1, c, nc, oldcolor);
+        flow(image, r-1, c, nc, oldcolor);
+        flow(image, r, c-1, nc, oldcolor);
+        flow(image, r, c+1, nc, oldcolor);
     }
 }
