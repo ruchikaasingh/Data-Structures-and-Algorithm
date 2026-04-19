@@ -1,22 +1,23 @@
 class Solution {
-    public boolean canFinish(int v, int[][] edges) {
+    public boolean canFinish(int n, int[][] edges) {
         ArrayList<ArrayList<Integer>> adj= new ArrayList<>();
-        for(int i=0; i<v; i++){
+        for(int i=0; i<n; i++){
             adj.add(new ArrayList<>());
         }
 
-        int indegree[]= new int[v];
+        int indegree[]= new int[n];
         for(int edge[]: edges){
-            adj.get(edge[1]).add(edge[0]);
             indegree[edge[0]]++;
+            adj.get(edge[1]).add(edge[0]);
         }
 
-        ArrayList<Integer> topo= new ArrayList<>();
         Queue<Integer> q= new LinkedList<>();
-        
-        for(int i=0; i<v; i++){
-            if(indegree[i]==0) q.add(i);
+        for(int i=0; i<indegree.length; i++){
+            if(indegree[i]==0){
+                q.add(i);
+            }
         }
+       ArrayList<Integer> topo= new ArrayList<>();
 
         while(!q.isEmpty()){
             int node= q.poll();
@@ -24,9 +25,12 @@ class Solution {
 
             for(int nb: adj.get(node)){
                 indegree[nb]--;
-                if(indegree[nb]==0) q.add(nb);
+
+                if(indegree[nb]==0){
+                    q.add(nb);
+                }  
             }
         }
-        return topo.size()==v;
+        return topo.size() == n;
     }
 }
