@@ -22,7 +22,7 @@ class Solution {
             }
         }
 
-        ArrayList<Integer> safe= new ArrayList<>();
+        ArrayList<Integer> safe = new ArrayList<>();
         while(!q.isEmpty()){
             int cur= q.poll();
             safe.add(cur);
