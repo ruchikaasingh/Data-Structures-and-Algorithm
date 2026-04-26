@@ -1,27 +1,29 @@
 class Solution {
     static int[][] dirs = { { 0, -1 }, { 0, 1 }, { -1, 0 }, { 1, 0 } };
+    static int n, m;
 
     public boolean containsCycle(char[][] grid) {
-        int m = grid.length;
-        int n = grid[0].length;
-        boolean[] visit = new boolean[m * n];
+        n = grid.length;
+        m = grid[0].length;
+        boolean[] visit = new boolean[n*m];
 
-        for (int i = 0; i < m; i++)
-            for (int j = 0; j < n; j++)
-                if (!visit[i * n + j] && dfs(i, j, -1, -1, grid, visit, m, n))
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < m; j++)
+                if (!visit[i * m + j] && dfs(i, j, -1, -1, grid, visit))
                     return true;
         return false;
     }
 
-    private static boolean dfs(int r, int c, int pr, int pc, char[][] grid, boolean[] visit, int m, int n) {
-        visit[r * n + c] = true;
+    private static boolean dfs(int r, int c, int pr, int pc, char[][] grid, boolean[] visit) {
+        visit[r * m + c] = true;
+        
         for (int[] d : dirs) {
             int nr = r + d[0];
             int nc = c + d[1];
             if (nr != pr || nc != pc)
-                if (nr >= 0 && nr < m && nc >= 0 && nc < n)
+                if (nr >= 0 && nr < n && nc >= 0 && nc < m)
                     if (grid[nr][nc] == grid[r][c])
-                        if (visit[nr * n + nc] || dfs(nr, nc, r, c, grid, visit, m, n))
+                        if (visit[nr * m + nc] || dfs(nr, nc, r, c, grid, visit))
                             return true;
         }
         return false;
