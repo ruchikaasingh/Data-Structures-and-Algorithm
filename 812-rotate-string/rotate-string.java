@@ -1,9 +1,23 @@
 class Solution {
     public boolean rotateString(String s, String goal) {
-        // A rotation must have the same length
         if (s.length() != goal.length()) return false;
+        int n = s.length();
+
+        // Try every possible starting shift i
+        for (int i = 0; i < n; i++) {
+            boolean match = true;
+            
+            // Check if goal matches s starting at shift i
+            for (int j = 0; j < n; j++) {
+                if (s.charAt((i + j) % n) != goal.charAt(j)) {
+                    match = false;
+                    break;
+                }
+            }
+            
+            if (match) return true;
+        }
         
-        // Check if goal is a substring of s + s
-        return (s + s).contains(goal);
+        return false;
     }
 }
