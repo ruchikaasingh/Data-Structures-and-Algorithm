@@ -2,8 +2,7 @@ class Solution {
     public List<String> summaryRanges(int[] nums) {
         int n= nums.length;
         List<String> list= new ArrayList<>();
-        StringBuilder sb= new StringBuilder();
-        
+        StringBuilder sb= new StringBuilder(); 
         int j=0;
         for(int i=0; i<n; i++){
             if(i+1<n && nums[i+1] == nums[i]+1){
@@ -20,7 +19,7 @@ class Solution {
                 }
                 
                 j=i+1;
-                sb= new StringBuilder();
+                sb.setLength(0);
             }
         }
         return list;
