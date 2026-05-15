@@ -9,7 +9,7 @@ class Solution {
         while(low<=high){
             int mid= low+(high-low)/2;
 
-            if(nums[low]< nums[high]){
+            if(nums[low]< nums[high]){    //left search space
                 if(nums[low]< nums[mid]){
                     high= mid-1;
                 }
@@ -17,8 +17,8 @@ class Solution {
                     low= mid+1;
                 }
             }
-            else{
-                if(nums[high]< nums[mid]){
+            else{                        //right search space
+                if(nums[high]< nums[mid]){ 
                     low= mid+1;
                 }
                 else{
