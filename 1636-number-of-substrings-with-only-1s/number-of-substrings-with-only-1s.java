@@ -1,17 +1,19 @@
 class Solution {
-    static final int M = 1_000_000_007;
-    
     public int numSub(String s) {
-        long ans = 0;
-        long count1 = 0;
+        int mod= (int) 1e9+7;
+        int n= s.length();
 
-        for (char ch : s.toCharArray()) {
-            if (ch == '1') {
-                count1++;
-                ans = (ans + count1) % M; // add current streak
-            } else count1 = 0;
+        int ans=0;
+        int count=0;
+        for(int i=0; i<n; i++){
+            if(s.charAt(i)=='1'){
+                count++;
+            }
+            else{
+                count=0;
+            }
+            ans = (ans + count) % mod;
         }
-
-        return (int) ans;
+        return ans;
     }
 }
