@@ -1,5 +1,3 @@
-import java.util.*;
-
 class Solution {
     public List<Integer> findValidElements(int[] nums) {
         int n = nums.length;
