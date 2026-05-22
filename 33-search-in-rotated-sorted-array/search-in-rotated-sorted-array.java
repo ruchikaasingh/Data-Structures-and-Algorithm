@@ -1,38 +1,37 @@
 class Solution {
-    public int search(int[] nums, int target) {
+    public int search(int[] arr, int target) {
+        int n = arr.length;
         int low = 0;
-        int high = nums.length - 1;
+        int high = n - 1;
 
         while (low <= high) {
             int mid = low + (high - low) / 2;
-            
-            if (nums[mid] == target) {
+
+            // always check the target first before moving pointers
+            if (arr[mid] == target) {
                 return mid;
             }
 
-            // Check if the left half [low...mid] is sorted
-            if (nums[low] <= nums[mid]) {
-                // Target is in the sorted left half
-                if (nums[low] <= target && target < nums[mid]) {
-                    high = mid - 1;
+            //identify which half is normally sorted
+            if (arr[low] <= arr[mid]) { // Left half is sorted
+
+                //target exists within this sorted left half
+                if (target >= arr[low] && target < arr[mid]) {
+                    high = mid - 1; // Narrow down to the left
                 } else {
-                    // Target must be in the right half
-                    low = mid + 1;
+                    low = mid + 1;  //it must be on the right
                 }
             } 
-            
-            // The right half [mid...high] must be sorted
-            else { 
-                // Target is in the sorted right half
-                if (nums[mid] < target && target <= nums[high]) {
-                    low = mid + 1;
+            else { // Right half must be sorted
+
+                //target exists within this sorted right half
+                if (target > arr[mid] && target <= arr[high]) {
+                    low = mid + 1;  // Narrow down to the right
                 } else {
-                    // Target must be in the left half
-                    high = mid - 1;
+                    high = mid - 1; // Otherwise, it must be on the left
                 }
             }
         }
-        
         return -1;
     }
 }
