@@ -1,7 +1,7 @@
 class Solution {
     public int minElement(int[] nums) {
         int n= nums.length;
-        int min= (int)1e5;
+        int min= (int)1e4+1;
 
         for(int i=0; i<n; i++){
             int elem= nums[i];
@@ -12,7 +12,6 @@ class Solution {
                 num = rem + num;
                 elem /= 10;
             }
-            nums[i]= num;
             min= Math.min(min, num);        
         }
 
